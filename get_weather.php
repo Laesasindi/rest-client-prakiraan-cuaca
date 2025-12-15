@@ -1,60 +1,85 @@
 <?php
-require_once 'config.php';
-
+// get_weather.php - REST client untuk OpenWeatherMap API
+// Set header JSON terlebih dahulu
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET');
+header('Access-Control-Allow-Headers: Content-Type');
 
-// Fungsi demo data untuk berbagai kota
-function getDemoWeatherByCity($cityName) {
-    $demoData = [
-        'Jakarta' => [
-            'name' => 'Jakarta',
-            'sys' => ['country' => 'ID'],
-            'main' => [
-                'temp' => 29,
-                'feels_like' => 33,
-                'temp_min' => 27,
-                'temp_max' => 31,
+// Disable error reporting untuk output bersih
+error_reporting(0);
+ini_set('display_errors', 0);
+
+// Load config
+$config_path = file_exists('config.php') ? 'config.php' : null;
+if ($config_path && file_exists($config_path)) {
+    require_once $config_path;
+} else {
+    // Fallback config jika file tidak ada
+    $API_KEY = '3e0c7b48086358f5ce90a70eb1d5620f';
+    $BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
+}
+
+// Fungsi untuk validasi API key
+function isValidApiKey($key) {
+    return $key && strlen($key) > 10 && $key !== 'YOUR_API_KEY_HERE';
+}
+
+// Fungsi untuk demo data
+function getDemoWeatherData($cityName) {
+    $demoData = array(
+        'Jakarta' => array(
+            'coord' => array('lon' => 106.8456, 'lat' => -6.2088),
+            'weather' => array(
+                array('id' => 803, 'main' => 'Clouds', 'description' => 'awan tersebar', 'icon' => '04d')
+            ),
+            'main' => array(
+                'temp' => 29.5,
+                'feels_like' => 33.2,
+                'temp_min' => 28.0,
+                'temp_max' => 31.0,
                 'pressure' => 1009,
-                'humidity' => 71
-            ],
-            'weather' => [
-                ['icon' => '03d', 'description' => 'awan tersebar', 'main' => 'Clouds']
-            ],
-            'wind' => ['speed' => 6.2]
-        ],
-        'Surabaya' => [
-            'name' => 'Surabaya',
-            'sys' => ['country' => 'ID'],
-            'main' => [
-                'temp' => 31,
-                'feels_like' => 35,
-                'temp_min' => 29,
-                'temp_max' => 33,
+                'humidity' => 74
+            ),
+            'wind' => array('speed' => 3.5, 'deg' => 180),
+            'sys' => array('country' => 'ID'),
+            'name' => 'Jakarta'
+        ),
+        'Surabaya' => array(
+            'coord' => array('lon' => 112.7521, 'lat' => -7.2575),
+            'weather' => array(
+                array('id' => 800, 'main' => 'Clear', 'description' => 'langit cerah', 'icon' => '01d')
+            ),
+            'main' => array(
+                'temp' => 31.2,
+                'feels_like' => 35.8,
+                'temp_min' => 30.0,
+                'temp_max' => 33.0,
                 'pressure' => 1008,
                 'humidity' => 68
-            ],
-            'weather' => [
-                ['icon' => '01d', 'description' => 'langit cerah', 'main' => 'Clear']
-            ],
-            'wind' => ['speed' => 4.8]
-        ],
-        'Bandung' => [
-            'name' => 'Bandung',
-            'sys' => ['country' => 'ID'],
-            'main' => [
-                'temp' => 24,
-                'feels_like' => 26,
-                'temp_min' => 22,
-                'temp_max' => 26,
+            ),
+            'wind' => array('speed' => 4.2, 'deg' => 90),
+            'sys' => array('country' => 'ID'),
+            'name' => 'Surabaya'
+        ),
+        'Bandung' => array(
+            'coord' => array('lon' => 107.6191, 'lat' => -6.9175),
+            'weather' => array(
+                array('id' => 802, 'main' => 'Clouds', 'description' => 'awan mendung', 'icon' => '03d')
+            ),
+            'main' => array(
+                'temp' => 24.8,
+                'feels_like' => 26.5,
+                'temp_min' => 23.0,
+                'temp_max' => 26.0,
                 'pressure' => 1012,
                 'humidity' => 78
-            ],
-            'weather' => [
-                ['icon' => '04d', 'description' => 'awan mendung', 'main' => 'Clouds']
-            ],
-            'wind' => ['speed' => 3.2]
-        ]
-    ];
+            ),
+            'wind' => array('speed' => 2.8, 'deg' => 270),
+            'sys' => array('country' => 'ID'),
+            'name' => 'Bandung'
+        )
+    );
     
     $normalizedCity = ucfirst(strtolower(trim($cityName)));
     
@@ -66,56 +91,58 @@ function getDemoWeatherByCity($cityName) {
     }
     
     // Jika tidak ditemukan, buat data random
-    return [
-        'name' => $normalizedCity,
-        'sys' => ['country' => 'ID'],
-        'main' => [
+    return array(
+        'coord' => array('lon' => 106.8456 + (rand(-100, 100) / 100), 'lat' => -6.2088 + (rand(-100, 100) / 100)),
+        'weather' => array(
+            array('id' => 803, 'main' => 'Clouds', 'description' => 'awan tersebar', 'icon' => '04d')
+        ),
+        'main' => array(
             'temp' => rand(24, 34),
             'feels_like' => rand(26, 38),
             'temp_min' => rand(22, 30),
             'temp_max' => rand(28, 36),
             'pressure' => rand(1005, 1015),
             'humidity' => rand(60, 85)
-        ],
-        'weather' => [
-            ['icon' => '03d', 'description' => 'awan tersebar', 'main' => 'Clouds']
-        ],
-        'wind' => ['speed' => rand(2, 8)]
-    ];
+        ),
+        'wind' => array('speed' => rand(2, 8), 'deg' => rand(0, 360)),
+        'sys' => array('country' => 'ID'),
+        'name' => $normalizedCity
+    );
 }
 
-// Fungsi untuk mendapatkan cuaca berdasarkan nama kota
-function getWeatherByCity($cityName) {
-    global $API_KEY, $BASE_URL;
-    
-    // Jika tidak ada API key yang valid, gunakan demo data
-    if (!isApiKeyValid()) {
-        return getDemoWeatherByCity($cityName);
-    }
-    
-    $url = $BASE_URL . "?q=" . urlencode($cityName) . "&appid={$API_KEY}&units=metric&lang=id";
+// Fungsi untuk fetch data dari OpenWeatherMap
+function fetchWeatherFromAPI($cityName, $apiKey, $baseUrl) {
+    $url = $baseUrl . "?q=" . urlencode($cityName) . "&appid=" . $apiKey . "&units=metric&lang=id";
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Weather-App/1.0');
     
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $curlError = curl_error($ch);
     curl_close($ch);
     
-    // Jika terjadi error atau API key tidak valid, gunakan demo data
-    if ($httpCode !== 200 || !empty($curlError)) {
-        return getDemoWeatherByCity($cityName);
+    if ($curlError) {
+        return array('error' => 'cURL Error: ' . $curlError);
+    }
+    
+    if ($httpCode !== 200) {
+        return array('error' => 'HTTP Error: ' . $httpCode);
     }
     
     $decodedResponse = json_decode($response, true);
     
-    // Jika response tidak valid, gunakan demo data
-    if (!$decodedResponse || isset($decodedResponse['cod']) && $decodedResponse['cod'] !== 200) {
-        return getDemoWeatherByCity($cityName);
+    if (!$decodedResponse) {
+        return array('error' => 'Invalid JSON response');
+    }
+    
+    if (isset($decodedResponse['cod']) && $decodedResponse['cod'] !== 200) {
+        return array('error' => 'API Error: ' . (isset($decodedResponse['message']) ? $decodedResponse['message'] : 'Unknown error'));
     }
     
     return $decodedResponse;
@@ -123,32 +150,68 @@ function getWeatherByCity($cityName) {
 
 // Main logic
 try {
-    if (!isset($_GET['city']) || empty($_GET['city'])) {
-        throw new Exception('Nama kota tidak boleh kosong');
+    // Validasi parameter
+    if (!isset($_GET['city']) || empty(trim($_GET['city']))) {
+        echo json_encode(array(
+            'success' => false,
+            'message' => 'Parameter city tidak boleh kosong'
+        ));
+        exit;
     }
     
     $cityName = trim($_GET['city']);
     
     if (strlen($cityName) < 2) {
-        throw new Exception('Nama kota terlalu pendek');
+        echo json_encode(array(
+            'success' => false,
+            'message' => 'Nama kota terlalu pendek (minimal 2 karakter)'
+        ));
+        exit;
     }
     
-    $weatherData = getWeatherByCity($cityName);
-    
-    if ($weatherData === null || empty($weatherData)) {
-        throw new Exception('Kota tidak ditemukan atau terjadi kesalahan');
+    // Cek API key
+    if (!isValidApiKey($API_KEY)) {
+        // Gunakan demo data jika API key tidak valid
+        $weatherData = getDemoWeatherData($cityName);
+        echo json_encode(array(
+            'success' => true,
+            'weather' => $weatherData,
+            'source' => 'demo'
+        ));
+        exit;
     }
     
-    echo json_encode([
+    // Fetch dari API
+    $weatherData = fetchWeatherFromAPI($cityName, $API_KEY, $BASE_URL);
+    
+    if (isset($weatherData['error'])) {
+        // Jika API gagal, gunakan demo data
+        $demoData = getDemoWeatherData($cityName);
+        echo json_encode(array(
+            'success' => true,
+            'weather' => $demoData,
+            'source' => 'demo',
+            'api_error' => $weatherData['error']
+        ));
+        exit;
+    }
+    
+    // Berhasil dari API
+    echo json_encode(array(
         'success' => true,
-        'weather' => $weatherData
-    ]);
+        'weather' => $weatherData,
+        'source' => 'api'
+    ));
     
 } catch (Exception $e) {
-    http_response_code(400);
-    echo json_encode([
+    echo json_encode(array(
         'success' => false,
-        'message' => $e->getMessage()
-    ]);
+        'message' => 'Server error: ' . $e->getMessage()
+    ));
+} catch (Error $e) {
+    echo json_encode(array(
+        'success' => false,
+        'message' => 'Fatal error: ' . $e->getMessage()
+    ));
 }
 ?>
