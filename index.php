@@ -285,7 +285,7 @@ $currentWeather = getCurrentWeather();
         <?php endif; ?>
         
         <div class="navigation">
-            <a href="pages/search.php" class="nav-card">
+            <a href="cari.php" class="nav-card">
                 <div class="icon">🔍</div>
                 <h3>Search Cuaca</h3>
                 <p>Cari informasi cuaca berdasarkan nama kota atau koordinat geografis</p>
