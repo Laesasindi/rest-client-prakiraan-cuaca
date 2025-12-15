@@ -1,0 +1,43 @@
+# Dependencies
+vendor/
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Cache and temporary files
+cache/
+tmp/
+.phpunit.result.cache
+
+# API Keys (jangan commit API key)
+config_local.php
+
+# Build files
+dist/
+build/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock

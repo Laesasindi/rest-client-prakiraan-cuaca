@@ -1,0 +1,42 @@
+{
+    "name": "weather-rest-client/app",
+    "description": "Weather REST Client Application - Tugas Besar Pengujian Perangkat Lunak",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tim Weather REST Client",
+            "email": "team@weather-client.local"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WeatherApp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WeatherApp\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "syntax-check": "find . -name '*.php' -not -path './vendor/*' -exec php -l {} \\;",
+        "serve": "php -S localhost:8000"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
