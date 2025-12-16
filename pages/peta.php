@@ -12,39 +12,69 @@ if (file_exists($config_path)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peta Cuaca - Weather REST Client</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: white;
+            color: #333;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
+            padding: 20px;
         }
         .placeholder {
             background: rgba(255, 255, 255, 0.1);
             padding: 40px;
             border-radius: 20px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            color: white;
+        }
+        .placeholder h1 {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        .placeholder p {
+            opacity: 0.9;
+            margin-bottom: 15px;
         }
         .back-btn {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 20px;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
             text-decoration: none;
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
     </style>
 </head>
