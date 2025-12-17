@@ -12,7 +12,7 @@ class WeatherAppTest extends TestCase
     {
         $this->assertFileExists('index.php', 'File index.php harus ada');
         $this->assertFileExists('config.php', 'File config.php harus ada');
-        $this->assertFileExists('pages/search.php', 'File search.php harus ada');
+        $this->assertFileExists('pages/cari.php', 'File cari.php harus ada');
         $this->assertFileExists('pages/map.php', 'File map.php harus ada');
         $this->assertFileExists('pages/geography.php', 'File geography.php harus ada');
         $this->assertFileExists('pages/forecast.php', 'File forecast.php harus ada');
@@ -28,7 +28,7 @@ class WeatherAppTest extends TestCase
         $files = [
             'index.php',
             'config.php',
-            'pages/search.php',
+            'pages/cari.php',
             'pages/map.php',
             'pages/geography.php',
             'pages/forecast.php',
