@@ -77,7 +77,7 @@ weather-rest-client/
 ├── index.php              # Halaman utama
 ├── config.php             # Konfigurasi API dan helper functions
 ├── pages/                 # Halaman fitur
-│   ├── search.php         # Fitur pencarian (dalam pengembangan)
+│   ├── cari.php          # Fitur pencarian (sudah tersedia)
 │   ├── map.php           # Fitur peta (dalam pengembangan)
 │   ├── geography.php     # Fitur geography (dalam pengembangan)
 │   └── forecast.php      # Prakiraan cuaca lengkap (sudah tersedia)
