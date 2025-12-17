@@ -118,7 +118,7 @@ class WeatherAppTest extends TestCase
     }
 
     /**
-     * Test Case Bonus: HTML Structure
+     * Test Case 7: HTML Structure
      * Memastikan struktur HTML valid
      */
     public function testHtmlStructure()
@@ -134,7 +134,7 @@ class WeatherAppTest extends TestCase
     }
 
     /**
-     * Test Case Bonus: Helper Functions
+     * Test Case 8: Helper Functions
      * Memastikan helper functions bekerja dengan benar
      */
     public function testHelperFunctions()

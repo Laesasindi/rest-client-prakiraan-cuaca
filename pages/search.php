@@ -258,6 +258,13 @@ require_once '../config.php';
                     <div><strong>Pressure</strong><br>${data.main.pressure} hPa</div>
                     <div><strong>Wind</strong><br>${data.wind.speed} m/s</div>
                 </div>
+                <div style="margin-top: 15px;">
+                    <a href="forecast.php?city=${encodeURIComponent(data.name)}" 
+                       style="display: inline-block; background: #74b9ff; color: white; padding: 8px 16px; 
+                              border-radius: 20px; text-decoration: none; font-size: 14px; font-weight: 600;">
+                        📊 Lihat Prakiraan 5 Hari
+                    </a>
+                </div>
             `;
         }
 
