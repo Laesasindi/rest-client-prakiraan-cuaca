@@ -99,7 +99,7 @@ function getAseanCities() {
     ];
 }
 
-// Ambil data cuaca untuk semua kota
+// Ambil data cuaca semua kota
 $aseanCities = getAseanCities();
 $weatherData = [];
 
@@ -438,7 +438,7 @@ $indonesianCities = getIndonesianCities();
         
         .city-temp {
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: bold; 
             color: #ffeaa7;
         }
         
