@@ -6,7 +6,7 @@ require_once '../config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pencarian Cuaca - Weather REST Client</title>
+    <title>Pencarian - Weather REST Client</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
