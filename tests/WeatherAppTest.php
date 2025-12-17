@@ -12,8 +12,8 @@ class WeatherAppTest extends TestCase
     {
         $this->assertFileExists('index.php', 'File index.php harus ada');
         $this->assertFileExists('config.php', 'File config.php harus ada');
-        $this->assertFileExists('pages/cari.php', 'File cari.php harus ada');
-        $this->assertFileExists('pages/map.php', 'File map.php harus ada');
+        $this->assertFileExists('pages/search.php', 'File search.php harus ada');
+        $this->assertFileExists('pages/peta.php', 'File peta.php harus ada');
         $this->assertFileExists('pages/geography.php', 'File geography.php harus ada');
         $this->assertFileExists('pages/forecast.php', 'File forecast.php harus ada');
         $this->assertFileExists('get_weather.php', 'File get_weather.php harus ada');
@@ -28,8 +28,8 @@ class WeatherAppTest extends TestCase
         $files = [
             'index.php',
             'config.php',
-            'pages/cari.php',
-            'pages/map.php',
+            'pages/search.php',
+            'pages/peta.php',
             'pages/geography.php',
             'pages/forecast.php',
             'get_weather.php'
@@ -66,7 +66,12 @@ class WeatherAppTest extends TestCase
     public function testValidJsonResponse()
     {
         // Mock API response untuk testing
-        $mockResponse = '{"coord":{"lon":106.8456,"lat":-6.2088},"weather":[{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],"base":"stations","main":{"temp":30.5,"feels_like":35.2,"temp_min":29.0,"temp_max":32.0,"pressure":1010,"humidity":70},"visibility":10000,"wind":{"speed":3.6,"deg":120},"clouds":{"all":75},"dt":1640995200,"sys":{"type":1,"id":9374,"country":"ID","sunrise":1640995200,"sunset":1641038400},"timezone":25200,"id":1642911,"name":"Jakarta","cod":200}';
+        $mockResponse = '{"coord":{"lon":106.8456,"lat":-6.2088},"weather":
+        [{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],"base":"stations",
+        "main":{"temp":30.5,"feels_like":35.2,"temp_min":29.0,"temp_max":32.0,"pressure":1010,"humidity":70},
+        "visibility":10000,"wind":{"speed":3.6,"deg":120},"clouds":{"all":75},"dt":1640995200,"sys":
+        {"type":1,"id":9374,"country":"ID","sunrise":1640995200,"sunset":1641038400},
+        "timezone":25200,"id":1642911,"name":"Jakarta","cod":200}';
         
         $decodedResponse = json_decode($mockResponse, true);
         
