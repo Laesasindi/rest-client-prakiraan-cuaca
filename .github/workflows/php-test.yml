@@ -132,7 +132,7 @@ jobs:
         echo "Checking deployment readiness..."
         
         # Check if all required files exist
-        required_files=("index.php" "config.php" "pages/search.php" "pages/map.php" "pages/geography.php")
+        required_files=("index.php" "config.php" "pages/search.php" "pages/peta.php" "pages/geography.php")
         for file in "${required_files[@]}"; do
           if [ ! -f "$file" ]; then
             echo "ERROR: Required file $file is missing"
