@@ -297,7 +297,7 @@ $currentWeather = getCurrentWeather();
                 <p>Lihat prakiraan cuaca 5 hari ke depan dengan detail lengkap</p>
             </a>
             
-            <a href="peta.php" class="nav-card">
+            <a href="pages/peta.php" class="nav-card">
                 <div class="icon">🗺️</div>
                 <h3>Peta Cuaca</h3>
                 <p>Lihat kondisi cuaca dalam bentuk peta interaktif dengan visualisasi data</p>

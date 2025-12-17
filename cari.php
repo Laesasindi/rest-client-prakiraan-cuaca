@@ -195,7 +195,7 @@ require_once 'config.php';
 			<div class="icon">📊</div>
 			<div>Prakiraan</div>
 		</a>
-		<a href="peta.php" class="feature-small" title="Peta Kota">
+		<a href="pages/peta.php" class="feature-small" title="Peta Kota">
 			<div class="icon">🗺️</div>
 			<div>Peta Kota</div>
 		</a>
